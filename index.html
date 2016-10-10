@@ -4,7 +4,23 @@
     <title>Shopping List Check Off</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
+   <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,7 +38,7 @@
              <li ng-repeat="item in toBuyItem.items">Buy {{item.quantity}} {{item.name}}
                <button ng-click='toBuyItem.buyItem($index);' class="btn btn-primary"><span class="glyphicon glyphicon-hand-ok"></span> Bought</button></li>
            </ol>
-           <div class="alert alert-success" ng-show='toBuyItem.empty();'>
+           <div class="emptyMessage" ng-show='toBuyItem.empty();'>
             
              Everything is bought!</div>
           </div>
@@ -33,7 +49,7 @@
            <ol>
              <li ng-repeat="item in boughtItems.items">Bought {{item.quantity}} {{item.name}}</li>
            </ol>
-           <div class="alert alert-danger" ng-show='boughtItems.empty();'>
+           <div class="emptyMessage" ng-show='boughtItems.empty();'>
      
              Nothing bought yet.</div>
           </div>
