@@ -18,9 +18,6 @@
 <body>
   <div class="container">
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">Shopping List Check Off</div>
-      <div class="panel-body">
         <div class="row">
 
           <!-- List To Buy -->
@@ -28,11 +25,10 @@
            <h4>To Buy:</h4>
            <ol>
              <li ng-repeat="item in toBuyItem.items" class="list-custom">Buy {{item.quantity}} {{item.name}}
-               <button ng-click='toBuyItem.buyItem($index);' class="btn btn-primary"><span class="glyphicon glyphicon-hand-left"></span> Bought</button></li>
+               <button ng-click='toBuyItem.buyItem($index);' class="btn btn-primary"><span class="glyphicon glyphicon-hand-ok"></span> Bought</button></li>
            </ol>
-           <div class="alert alert-success fade in" ng-show='toBuyItem.empty();'>
-             <span class="glyphicon glyphicon-ok"></span>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+           <div class="alert alert-success" ng-show='toBuyItem.empty();'>
+            
              Everything is bought!</div>
           </div>
 
@@ -42,15 +38,12 @@
            <ol>
              <li ng-repeat="item in boughtItems.items" class="list-custom">Bought {{item.quantity}} {{item.name}}</li>
            </ol>
-           <div class="alert alert-danger fade in" ng-show='boughtItems.empty();'>
-             <span class="glyphicon glyphicon-remove"></span>
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+           <div class="alert alert-danger" ng-show='boughtItems.empty();'>
+     
              Nothing bought yet.</div>
           </div>
         </div>
-      </div>
-    </div>
-
+   
 
 
 </div>
