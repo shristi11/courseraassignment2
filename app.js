@@ -9,25 +9,25 @@
     function ToBuyController(ShoppingListCheckOffService) {
         var toBuyItem = this;
 
-        buyList.items = ShoppingListCheckOffService.getToBuyItem();
+        toBuyItem.items = ShoppingListCheckOffService.getToBuyItem();
 
-        buyList.buyItem = function(indexOfItems){
+        toBuyItem.buyItem = function(indexOfItems){
             ShoppingListCheckOffService.buyItem(indexOfItems);
         };
 
-        buyList.empty = function(){
-            return buyList.items.length === 0;
+        toBuyItem.empty = function(){
+            return toBuyItem.items.length === 0;
         }
     };
 
     AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
     function AlreadyBoughtController(ShoppingListCheckOffService) {
-        var boughtList = this;
+        var boughtItems = this;
 
-        boughtList.items = ShoppingListCheckOffService.getBoughtItems();
+        boughtItems.items = ShoppingListCheckOffService.getBoughtItems();
 
-        boughtList.empty = function(){
-            return boughtList.items.length === 0;
+        boughtItems.empty = function(){
+            return boughtItems.items.length === 0;
         }
     };
 
@@ -52,17 +52,17 @@
             },
 
         ];
-        var boughtList = [];
+        var boughtItems = [];
 
         service.buyItem = function (indexOfItems) {
-            boughtList.push(buyItems[indexOfItems]);
+            boughtItems.push(buyItems[indexOfItems]);
             buyItems.splice(indexOfItems,1);
         };
         service.getToBuyItem = function () {
             return buyItems;
         };
         service.getBoughtItems = function () {
-            return boughtList;
+            return boughtItems;
         };
 
     }
