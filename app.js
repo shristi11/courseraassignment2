@@ -1,62 +1,70 @@
-(function() {
-"use strict";
+(function () {
+    'use strict';
+    angular.module('ShoppingListCheckOff', [])
+    .controller('ToBuyController', ToBuyController)
+        .controller('AlreadyBoughtController', AlreadyBoughtController)
+        .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-angular.module("ShoppingListCheckOff", [])
-.controller('ToBuyController', ToBuyController)
-.controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+    ToBuyController.$inject = ['ShoppingListCheckOffService'];
+    function ToBuyController(ShoppingListCheckOffService) {
+        var toBuyItem = this;
 
-ToBuyController.$inject = ['ShoppingListCheckOffService'];
-function ToBuyController( ShoppingListCheckOffService) {
-	var buyList = this;
+        toBuyItem.items = ShoppingListCheckOffService.getToBuyItem();
 
-	buyList.items = ShoppingListCheckOffService.getItems();
+        toBuyItem.buyItem = function(indexOfItems){
+            ShoppingListCheckOffService.buyItem(indexOfItems);
+        };
 
+        toBuyItem.empty = function(){
+            return toBuyItem.items.length === 0;
+        }
+    };
 
-	
-	buyList.Alreadybought = function (itemIndex) {
-		try {
-			ShoppingListCheckOffService.Alreadybought(itemIndex);
-		} catch (error) {
-			buyList.errorMessage = errormessage;
-		}
-	}
-}
+    AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+    function AlreadyBoughtController(ShoppingListCheckOffService) {
+        var boughtItems = this;
 
-AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-function AlreadyBoughtController(ShoppingListCheckOffService) {
-   var boughtList = this;
-	
-	boughtList.items = ShoppingListCheckOffService.setItems();
-    
-}
+        boughtItems.items = ShoppingListCheckOffService.getBoughtItems();
 
- function ShoppingListCheckOffService() {
- 	var service = this;
-    
-    var toBuyitems = [
-       { name: "cookies", quantity: 10 },
- { name: "Bread", quantity: 2 },
- { name: "cereal", quantity: 4 },
- { name: "eggs", quantity: 12 },
- { name: "milk", quantity: 3 }
- ];
-    
- var boughtItems = []; 
+        boughtItems.empty = function(){
+            return boughtItems.items.length === 0;
+        }
+    };
 
-    service.Alreadybought = function(itemIndex) {
-       boughtItems.push(toBuyitems.splice(itemIndex, 1));
- 	}
+    function ShoppingListCheckOffService() {
+        var service = this;
 
-   service.getItems = function() {
-    	
-    		return toBuyitems;
- 
+        var buyItems = [ {
+                name: "Meat",
+                quantity: 5,
+            },{
+                name: "Bacon",
+                quantity: 8,
+            },{
+                name: "Salad",
+                quantity: 3,
+            },{
+                name: "Ribs",
+                quantity: 9,
+            },{
+                name: "Eggs",
+                quantity: 6,
+            },
+
+        ];
+        var boughtItems = [];
+
+        service.buyItem = function (indexOfItems) {
+            boughtItems.push(buyItems[indexOfItems]);
+            buyItems.splice(indexOfItems,1);
+        };
+        service.getToBuyItem = function () {
+            return buyItems;
+        };
+        service.getBoughtItems = function () {
+            return boughtItems;
+        };
+
     }
 
-    service.setItems = function() {
-    	return boughtItems;
-    }
- 	
- }
 })();
